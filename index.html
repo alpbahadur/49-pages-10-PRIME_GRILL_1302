@@ -3,9 +3,1090 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>PRIME GRILL 1302 | Prime Steakhouse in Condado, San Juan</title>
+    <meta name="description" content="Experience prime hand-cut meats and family-style dining in the heart of Condado. PRIME GRILL 1302 offers an elegant yet welcoming atmosphere with the finest local ingredients.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f5f5f5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b8941f;
+        }
+
+        /* Animated Background */
+        .steakhouse-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 50%, #f5f5f5 100%);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: #d4af37;
+            color: #1a1a1a;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            border: 2px solid #d4af37;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: #d4af37;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #1a1a1a;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            border: 2px solid #1a1a1a;
+        }
+
+        .btn-secondary:hover {
+            background: #1a1a1a;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(26, 26, 26, 0.2);
+        }
+
+        /* Hero Section */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.7) 0%, rgba(26, 26, 26, 0.4) 100%);
+        }
+
+        .hero-title {
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            animation: fadeInUp 1.2s ease-out;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-cta {
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 20px auto;
+        }
+
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .glass-effect:hover {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Image Zoom Effect */
+        .image-container {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .image-zoom {
+            transition: transform 0.6s ease;
+        }
+
+        .image-container:hover .image-zoom {
+            transform: scale(1.08);
+        }
+
+        /* Menu Item Hover */
+        .menu-item {
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        /* Timeline */
+        .timeline-item {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(50px);
+        }
+
+        .timeline-item:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #f5f5f5;
+        }
+
+        footer a {
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #d4af37;
+        }
+
+        /* Image Loading Effect */
+        img {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        img.loaded {
+            opacity: 1;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Accent Text */
+        .text-accent {
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        /* Card Hover Effect */
+        .card-3d {
+            transition: all 0.4s ease;
+        }
+
+        .card-3d:hover {
+            transform: perspective(1000px) rotateY(2deg) rotateX(2deg);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Feature Icons */
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: grayscale(0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-icon:hover {
+            filter: grayscale(0);
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
-    <!-- Content will be added here -->
+
+    <!-- Animated Background -->
+    <div class="steakhouse-background"></div>
+
+    <!-- Canvas for floating particles -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#home" class="flex items-center gap-3">
+                        <img src="./assets/image_3.png" alt="PRIME GRILL 1302" class="h-12 md:h-16">
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-[#d4af37] active">Home</a>
+                    <a href="#story" class="nav-link text-gray-700 hover:text-[#d4af37]">Our Story</a>
+                    <a href="#menu" class="nav-link text-gray-700 hover:text-[#d4af37]">Menu</a>
+                    <a href="#gallery" class="nav-link text-gray-700 hover:text-[#d4af37]">Gallery</a>
+                    <a href="#private-gatherings" class="nav-link text-gray-700 hover:text-[#d4af37]">Private Events</a>
+                    <a href="#reservations" class="btn-primary">Reserve</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50">
+            <div class="p-6">
+                <button id="close-menu-btn" class="text-gray-700 float-right focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div class="clear-both mt-12 space-y-6">
+                    <a href="#home" class="block text-gray-700 hover:text-[#d4af37] text-lg font-light">Home</a>
+                    <a href="#story" class="block text-gray-700 hover:text-[#d4af37] text-lg font-light">Our Story</a>
+                    <a href="#menu" class="block text-gray-700 hover:text-[#d4af37] text-lg font-light">Menu</a>
+                    <a href="#gallery" class="block text-gray-700 hover:text-[#d4af37] text-lg font-light">Gallery</a>
+                    <a href="#private-gatherings" class="block text-gray-700 hover:text-[#d4af37] text-lg font-light">Private Events</a>
+                    <a href="#reservations" class="block btn-primary text-center mt-8">Reserve</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="./assets/image_1.jpg" alt="PRIME GRILL 1302 Steakhouse" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <h1 class="hero-title text-5xl md:text-7xl lg:text-8xl font-light text-white mb-6" style="letter-spacing: 4px;">
+                PRIME CUTS, FAMILY ROOTS
+            </h1>
+            <p class="hero-subtitle text-xl md:text-3xl text-white mb-4 font-light">
+                Exceptional Steakhouse in the Heart of Condado
+            </p>
+            <p class="hero-subtitle text-lg md:text-xl text-white mb-10 font-light" style="opacity: 0.95;">
+                Hand-Cut Prime Meats • Farm-to-Table • Family Style Dining
+            </p>
+            <div class="hero-cta space-x-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#reservations" class="btn-primary">Reserve a Table</a>
+                <a href="#menu" class="btn-secondary border-white text-white hover:bg-white hover:text-[#1a1a1a]">View Menu</a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
+            <div class="animate-bounce">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="py-20 md:py-24 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1a1a1a]">
+                        Where Quality Meets Tradition
+                    </h2>
+                    <div class="section-divider mx-0"></div>
+                    <p class="text-lg leading-relaxed mb-6 text-gray-700">
+                        At PRIME GRILL 1302, we believe in the perfect blend of exceptional quality and warm hospitality. Located in the prestigious Condado neighborhood of San Juan, our family-style steakhouse has become a destination for those who appreciate the finest hand-cut prime meats.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-8 text-gray-700">
+                        We source the best local ingredients from Puerto Rico, ensuring every dish celebrates authentic flavors while maintaining the highest standards of excellence. Our commitment is simple: deliver an unforgettable dining experience in an atmosphere that feels like home.
+                    </p>
+                    <a href="#story" class="btn-secondary">Discover Our Story</a>
+                </div>
+                <div class="fade-in image-container">
+                    <img src="./assets/image_2.jpg" alt="Prime Steak" class="image-zoom w-full h-auto rounded-lg shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 md:py-24 bg-[#f5f5f5] relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1a1a1a]">
+                    The PRIME Experience
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-gray-700">
+                    Every detail is crafted to perfection, from our hand-selected cuts to our warm, inviting atmosphere.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="fade-in text-center p-8 glass-effect rounded-lg">
+                    <div class="feature-icon text-5xl mb-4">🥩</div>
+                    <h3 class="text-2xl font-normal mb-3 text-[#1a1a1a]">
+                        Prime Hand-Cut Meats
+                    </h3>
+                    <p class="text-gray-700">
+                        Only the finest USDA Prime beef, expertly aged and hand-cut by our master butchers.
+                    </p>
+                </div>
+
+                <div class="fade-in text-center p-8 glass-effect rounded-lg">
+                    <div class="feature-icon text-5xl mb-4">🌴</div>
+                    <h3 class="text-2xl font-normal mb-3 text-[#1a1a1a]">
+                        Local Island Ingredients
+                    </h3>
+                    <p class="text-gray-700">
+                        Fresh, seasonal ingredients sourced from the best local Puerto Rican farmers and producers.
+                    </p>
+                </div>
+
+                <div class="fade-in text-center p-8 glass-effect rounded-lg">
+                    <div class="feature-icon text-5xl mb-4">👨‍👩‍👧‍👦</div>
+                    <h3 class="text-2xl font-normal mb-3 text-[#1a1a1a]">
+                        Family Style Dining
+                    </h3>
+                    <p class="text-gray-700">
+                        An elegant yet welcoming atmosphere perfect for families, celebrations, and special moments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="py-20 md:py-24 bg-white relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1a1a1a]">
+                    Our Story
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-gray-700">
+                    A passion for excellence and a commitment to creating memorable dining experiences.
+                </p>
+            </div>
+
+            <div class="fade-in bg-[#f5f5f5] p-8 md:p-12 rounded-lg shadow-xl">
+                <div class="grid md:grid-cols-2 gap-8 items-center mb-8">
+                    <div class="image-container">
+                        <img src="./assets/image_5.jpg" alt="Restaurant Interior" class="image-zoom w-full h-auto rounded-lg shadow-lg">
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-light mb-4 text-[#1a1a1a]">
+                            Born in Condado
+                        </h3>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            PRIME GRILL 1302 opened its doors in the vibrant Condado neighborhood with a simple vision: to create a steakhouse that combines world-class quality with the warmth of family dining.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Our location at 1302 became more than just an address—it represents our commitment to being a cornerstone of the community, where locals and visitors alike can enjoy exceptional food in an atmosphere that feels like a second home.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="order-2 md:order-1">
+                        <h3 class="text-3xl font-light mb-4 text-[#1a1a1a]">
+                            Our Philosophy
+                        </h3>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            We believe that great food starts with great ingredients. That's why we've built relationships with the finest local suppliers across Puerto Rico, ensuring that every dish showcases the island's incredible bounty.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            From our signature prime steaks to our fresh seafood, paellas, and handcrafted pastas, every item on our menu is prepared with care, creativity, and a deep respect for culinary tradition.
+                        </p>
+                    </div>
+                    <div class="order-1 md:order-2 image-container">
+                        <img src="./assets/image_6.png" alt="Culinary Excellence" class="image-zoom w-full h-auto rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 md:py-24 bg-[#1a1a1a] relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-white">
+                    Our Menu
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-gray-300">
+                    Explore our carefully curated selection of prime cuts, fresh seafood, and signature dishes.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Menu Highlights -->
+                <div class="fade-in">
+                    <div class="bg-white p-8 rounded-lg shadow-xl h-full">
+                        <h3 class="text-3xl font-light mb-6 text-[#1a1a1a]">
+                            Signature Selections
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-[#d4af37]">Prime Steaks</h4>
+                                <p class="text-gray-700">
+                                    Hand-cut USDA Prime beef, aged to perfection and grilled to your specification. Our signature cuts include ribeye, New York strip, filet mignon, and porterhouse.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-[#d4af37]">Fresh Seafood</h4>
+                                <p class="text-gray-700">
+                                    Daily selections of the freshest catch from local waters, including grilled salmon, Caribbean lobster, and our famous grouper ceviche.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-[#d4af37]">Specialty Dishes</h4>
+                                <p class="text-gray-700">
+                                    Authentic paellas, creamy risottos, artisan pizzetas, and handcrafted pastas featuring local ingredients and international techniques.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2 text-[#d4af37]">Appetizers & Sides</h4>
+                                <p class="text-gray-700">
+                                    From classic Caesar salad to truffle mac & cheese, our starters and sides perfectly complement your main course.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Image -->
+                <div class="fade-in image-container">
+                    <img src="./assets/image_7.png" alt="PRIME GRILL 1302 Menu" class="image-zoom w-full h-auto rounded-lg shadow-2xl">
+                </div>
+            </div>
+
+            <div class="text-center fade-in">
+                <p class="text-lg mb-6 text-gray-300">
+                    Our menu features seasonal selections and daily specials crafted by our culinary team.
+                </p>
+                <a href="mailto:info@prime1302pr.com" class="btn-primary">Contact for Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 md:py-24 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1a1a1a]">
+                    Gallery
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-gray-700">
+                    A visual journey through our culinary creations and elegant atmosphere.
+                </p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_1.jpg" alt="Restaurant Ambiance" class="image-zoom w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_2.jpg" alt="Prime Steak" class="image-zoom w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_5.jpg" alt="Dining Experience" class="image-zoom w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_6.png" alt="Culinary Art" class="image-zoom w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_4.png" alt="Fine Dining" class="image-zoom w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_0.png" alt="PRIME Experience" class="image-zoom w-full h-full object-cover rounded-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Private Gatherings Section -->
+    <section id="private-gatherings" class="py-20 md:py-24 bg-[#f5f5f5] relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1a1a1a]">
+                    Private Events & Gatherings
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-gray-700">
+                    Create unforgettable memories with your private celebration at PRIME GRILL 1302.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h3 class="text-3xl font-light mb-6 text-[#1a1a1a]">
+                        Your Special Occasion, Our Expertise
+                    </h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Whether you're planning an intimate dinner party, corporate event, wedding reception, or milestone celebration, our private dining spaces provide the perfect setting for your special occasion.
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">✨</span>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-1 text-[#1a1a1a]">Customized Menus</h4>
+                                <p class="text-gray-700">Work with our culinary team to create a personalized menu tailored to your preferences and dietary needs.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">🍷</span>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-1 text-[#1a1a1a]">Wine Pairings</h4>
+                                <p class="text-gray-700">Expert sommelier recommendations to complement your dining experience.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">👔</span>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-1 text-[#1a1a1a]">Dedicated Service</h4>
+                                <p class="text-gray-700">Attentive staff ensuring every detail of your event is executed flawlessly.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">📍</span>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-1 text-[#1a1a1a]">Prime Location</h4>
+                                <p class="text-gray-700">Convenient Condado location with elegant private dining rooms.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="mailto:info@prime1302pr.com" class="btn-primary">Inquire About Private Events</a>
+                </div>
+
+                <div class="fade-in">
+                    <div class="glass-effect p-8 rounded-lg shadow-xl">
+                        <h3 class="text-2xl font-light mb-6 text-[#1a1a1a]">Event Packages</h3>
+                        <div class="space-y-6">
+                            <div class="border-l-4 border-[#d4af37] pl-4">
+                                <h4 class="text-xl font-semibold mb-2 text-[#1a1a1a]">Intimate Gatherings</h4>
+                                <p class="text-gray-700 mb-2">Up to 20 guests</p>
+                                <p class="text-sm text-gray-600">Perfect for birthday celebrations, anniversaries, or small family reunions.</p>
+                            </div>
+                            <div class="border-l-4 border-[#d4af37] pl-4">
+                                <h4 class="text-xl font-semibold mb-2 text-[#1a1a1a]">Corporate Events</h4>
+                                <p class="text-gray-700 mb-2">20-50 guests</p>
+                                <p class="text-sm text-gray-600">Ideal for business dinners, team celebrations, or client entertaining.</p>
+                            </div>
+                            <div class="border-l-4 border-[#d4af37] pl-4">
+                                <h4 class="text-xl font-semibold mb-2 text-[#1a1a1a]">Grand Celebrations</h4>
+                                <p class="text-gray-700 mb-2">50+ guests</p>
+                                <p class="text-sm text-gray-600">Wedding receptions, retirement parties, or large-scale celebrations.</p>
+                            </div>
+                        </div>
+                        <div class="mt-8 p-4 bg-white rounded-lg">
+                            <p class="text-sm text-gray-600 italic">
+                                "PRIME GRILL 1302 made our anniversary celebration absolutely perfect. The food, service, and atmosphere exceeded all expectations."
+                            </p>
+                            <p class="text-sm font-semibold mt-2 text-[#1a1a1a]">— Private Event Guest</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservations Section -->
+    <section id="reservations" class="py-20 md:py-24 bg-white relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1a1a1a]">
+                    Reserve Your Table
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-gray-700">
+                    Join us for an exceptional dining experience in the heart of Condado.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Reservation Info -->
+                <div class="fade-in">
+                    <div class="glass-effect p-8 rounded-lg shadow-xl h-full">
+                        <h3 class="text-3xl font-light mb-6 text-[#1a1a1a]">
+                            Visit Us
+                        </h3>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold mb-2 text-[#1a1a1a]">Location</h4>
+                                <p class="text-gray-700">
+                                    1302 Ashford Avenue<br>
+                                    Condado, San Juan<br>
+                                    Puerto Rico
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-2 text-[#1a1a1a]">Hours</h4>
+                                <p class="text-gray-700">
+                                    Monday - Thursday: 5:00 PM - 10:00 PM<br>
+                                    Friday - Saturday: 5:00 PM - 11:00 PM<br>
+                                    Sunday: 4:00 PM - 9:00 PM
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-2 text-[#1a1a1a]">Contact</h4>
+                                <p class="text-gray-700">
+                                    Email: <a href="mailto:info@prime1302pr.com" class="text-[#d4af37] hover:underline">info@prime1302pr.com</a><br>
+                                    Phone: Coming Soon
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-2 text-[#1a1a1a]">Reservations</h4>
+                                <p class="text-gray-700 mb-4">
+                                    We highly recommend making a reservation to ensure your preferred time and table. Walk-ins are welcome subject to availability.
+                                </p>
+                                <a href="mailto:info@prime1302pr.com?subject=Reservation Request" class="btn-primary">
+                                    Make a Reservation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="fade-in">
+                    <div class="bg-[#1a1a1a] text-white p-8 rounded-lg shadow-xl mb-6">
+                        <h3 class="text-3xl font-light mb-6">
+                            What to Expect
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <span class="text-[#d4af37] text-xl">•</span>
+                                <p class="text-gray-300">
+                                    <strong class="text-white">Dress Code:</strong> Smart casual. We welcome guests to dress comfortably while maintaining an elegant atmosphere.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="text-[#d4af37] text-xl">•</span>
+                                <p class="text-gray-300">
+                                    <strong class="text-white">Parking:</strong> Valet parking available. Street parking also available nearby.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="text-[#d4af37] text-xl">•</span>
+                                <p class="text-gray-300">
+                                    <strong class="text-white">Dietary Accommodations:</strong> Please inform us of any dietary restrictions when making your reservation.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="text-[#d4af37] text-xl">•</span>
+                                <p class="text-gray-300">
+                                    <strong class="text-white">Special Occasions:</strong> Celebrating something special? Let us know and we'll make it memorable.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-effect p-8 rounded-lg shadow-xl">
+                        <h3 class="text-2xl font-light mb-4 text-[#1a1a1a]">
+                            Gift Certificates
+                        </h3>
+                        <p class="text-gray-700 mb-4">
+                            Give the gift of an exceptional dining experience. Our gift certificates are perfect for any occasion.
+                        </p>
+                        <a href="mailto:info@prime1302pr.com?subject=Gift Certificate Inquiry" class="btn-secondary">
+                            Purchase Gift Certificates
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Column 1: Logo & Description -->
+                <div class="md:col-span-2">
+                    <img src="./assets/image_3.png" alt="PRIME GRILL 1302" class="h-16 mb-4 brightness-200">
+                    <p class="text-gray-300 mb-4">
+                        An exceptional steakhouse in the heart of Condado, offering prime hand-cut meats, fresh local ingredients, and family-style dining in an elegant atmosphere.
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="text-xl font-normal mb-4 text-white">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="text-gray-300 hover:text-[#d4af37]">Home</a></li>
+                        <li><a href="#story" class="text-gray-300 hover:text-[#d4af37]">Our Story</a></li>
+                        <li><a href="#menu" class="text-gray-300 hover:text-[#d4af37]">Menu</a></li>
+                        <li><a href="#gallery" class="text-gray-300 hover:text-[#d4af37]">Gallery</a></li>
+                        <li><a href="#private-gatherings" class="text-gray-300 hover:text-[#d4af37]">Private Events</a></li>
+                        <li><a href="#reservations" class="text-gray-300 hover:text-[#d4af37]">Reservations</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact -->
+                <div>
+                    <h4 class="text-xl font-normal mb-4 text-white">Contact</h4>
+                    <p class="text-sm mb-2 text-gray-300">1302 Ashford Avenue</p>
+                    <p class="text-sm mb-2 text-gray-300">Condado, San Juan</p>
+                    <p class="text-sm mb-4 text-gray-300">Puerto Rico</p>
+                    <p class="text-sm mb-2">
+                        <a href="mailto:info@prime1302pr.com" class="text-gray-300 hover:text-[#d4af37]">info@prime1302pr.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2025 PRIME GRILL 1302. All rights reserved. | Prime Cuts, Family Roots</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ========== CANVAS PARTICLE ANIMATION - ELEGANT PARTICLES ==========
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.3 + 0.2;
+                this.color = ['rgba(212, 175, 55, 0.3)', 'rgba(26, 26, 26, 0.2)', 'rgba(245, 245, 245, 0.4)'][Math.floor(Math.random() * 3)];
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Gentle wave motion
+                this.x += Math.sin(Date.now() * 0.0005 + this.y * 0.005) * 0.2;
+                this.y += Math.cos(Date.now() * 0.0005 + this.x * 0.005) * 0.2;
+
+                // Wrap around edges
+                if (this.x < -20) this.x = canvas.width + 20;
+                if (this.x > canvas.width + 20) this.x = -20;
+                if (this.y < -20) this.y = canvas.height + 20;
+                if (this.y > canvas.height + 20) this.y = -20;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Create particles
+        const particles = [];
+        const particleCount = window.innerWidth < 768 ? 30 : 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animation loop
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // ========== NAVIGATION SCROLL EFFECT ==========
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Update active nav link based on scroll position
+            let current = '';
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ========== MOBILE MENU ==========
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // ========== SCROLL ANIMATIONS ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ========== SMOOTH SCROLLING ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ========== PRELOAD IMAGES ==========
+        window.addEventListener('load', () => {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                    });
+                }
+            });
+        });
+
+        // ========== PARALLAX EFFECT ON SCROLL ==========
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const heroImage = document.querySelector('#home img');
+            if (heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+
 </body>
 </html>
